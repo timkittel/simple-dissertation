@@ -1,1 +1,11 @@
 auxiliary/*
+example.aux
+example.bbl
+example.bcf
+example.blg
+example.log
+example.out
+example.pdf
+example.run.xml
+example.synctex.gz
+example.toc
