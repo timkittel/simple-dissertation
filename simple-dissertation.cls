@@ -6,7 +6,6 @@
 % be used for a dissertation (or actually any kind of thesis)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-<<<<<<< HEAD
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Option processing
@@ -32,16 +31,7 @@
 %	\ClassError{simple-dissertation}{unknown option ``\@erroroption{}''}
 %\fi
 
-=======
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Terminate the option processing
-\ProcessOptions\relax 
->>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -50,11 +40,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Load memoir class
-<<<<<<< HEAD
 \LoadClass[11pt,a4paper,twoside,onecolumn,openright
-=======
-\LoadClass[12pt,a4paper,twoside,onecolumn,openright
->>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
 %,final
 ,draft
 ,fleqn % displayed math environments will be indented an amount \mathindent from the left margin (the default is to center the environments).
@@ -71,7 +57,6 @@
 % additional packages
 \RequirePackage{xifthen}
 \RequirePackage{xparse}
-<<<<<<< HEAD
 
 \RequirePackage{enumitem}
 %\RequirePackage{multicol}
@@ -84,23 +69,17 @@
 % basic additional commands
 \newcommand{\ifnotempty}[2]{\ifthenelse{\isempty{#1}}{}{#2}}
 \newcommand{\IfNoValue}[2]{\IfNoValueTF{#1}{}{#2}} %TODO: this should actually be calle \IfValue ...
-=======
->>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Language
 \RequirePackage[english]{babel}
-<<<<<<< HEAD
 \RequirePackage{csquotes}
-=======
->>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Font
 \fontfamily{ppl}
-<<<<<<< HEAD
 
 % include boondox calligraphic alphabet
 \usepackage[bb=boondox]{mathalfa} % needed so mathbb can be used for digits, too
@@ -112,8 +91,6 @@
 \DeclareMathAlphabet{\mathcalboondox}{U}{BOONDOX-calo}{m}{n}
 \SetMathAlphabet{\mathcalboondox}{bold}{U}{BOONDOX-calo}{b}{n}
 \DeclareMathAlphabet{\mathbcalboondox}{U}{BOONDOX-calo}{b}{n}
-=======
->>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -133,10 +110,7 @@
 }
 
 \maxtocdepth{subsection} % everything down to subsection appears in the toc
-<<<<<<< HEAD
 %\maxtocdepth{subsubsection} % everything down to subsubsection appears in the toc
-=======
->>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
 \setcounter{secnumdepth}{3} % numbering down to subsubsection
 
 \renewcommand{\cftdotsep}{\cftnodots} % no dots in the toc 
@@ -156,7 +130,6 @@
 \aliaspagestyle{title}{empty}
 
 \let\Appendix\appendix
-<<<<<<< HEAD
 \def\appendix{\cftaddtitleline{toc}{chapter}{APPENDIX}{}\Appendix}
 %TODO: not working properly, the APPENDIX is put below the first appendix chapter
 
@@ -186,15 +159,10 @@
 \RenewDocumentCommand\paragraph{s m}{\Paragraph{#2\IfBooleanTF{#1}{}{\postparagraph{}}}}
 
 %\def\paragraph#1{\Paragraph{#1\postparagraph{}}} % added the point behind the paragraph title
-
-=======
-\def\appendix{\Appendix\cftaddtitleline{toc}{chapter}{APPENDIX}{}}
->>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Configure citations
-<<<<<<< HEAD
 \if@configbib
 	\RequirePackage[
 	style=alphabetic,
@@ -263,21 +231,10 @@
 
 \usepackage{xpatch}
 \xpatchcmd{\listoftheorems}{\@fileswfalse}{}{}{} % a fix, so that list of theoream appears in the pdf readers index, too
-=======
-\RequirePackage[
-style=alphabetic,
-citestyle=alphabetic-verb,
-backend=biber,
-backref=true,
-maxbibnames=99,
-]{biblatex}
-\newcommand\citet[1]{\citeauthor{#1}~\cite{#1}}
->>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Configure references inside the package
-<<<<<<< HEAD
 \PackageWarning{simple-dissertation}{simple-dissertation: something not working with the if configrefs stuff}
 %\if@configrefs
 	\RequirePackage{varioref}
@@ -343,45 +300,3 @@ maxbibnames=99,
 % custom commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-=======
-\RequirePackage[
-hidelinks,
-breaklinks=true,
-bookmarksnumbered=true,
-pdfpagemode=UseOutlines,
-%backref,
-% TODO: backref not working, check later
-]{hyperref} % not working?
-\RequirePackage{cleveref}
-% TODO: define the below and more
-\Crefname{equation}{Eq.}{Eqs.}
-\crefname{equation}{Eq.}{Eqs.}
-\Crefname{figure}{Fig.}{Figs.}
-\crefname{figure}{Fig.}{Figs.}
-\Crefname{tabular}{Tab.}{Tabs.}
-\crefname{tabular}{Tab.}{Tabs.}
-\Crefname{appendix}{App.}{Apps.}
-\crefname{appendix}{App.}{Apps.}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Colors
-\RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% custom commands
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newcommand\SpecialSection[1]{
-	\cleartorecto
-	\section*{#1}
-	\phantomsection
-	\addcontentsline{toc}{chapter}{#1}  % add '#1' to the TOC for orientation
-}
-
->>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
-
-
-
-\endinput

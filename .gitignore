@@ -1,5 +1,4 @@
 auxiliary/*
-<<<<<<< HEAD
 *.aux
 *.bbl
 *.bcf
@@ -10,5 +9,3 @@ auxiliary/*
 *.run.xml
 *.synctex.gz
 *.toc
-=======
->>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
