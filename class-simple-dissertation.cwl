@@ -11,13 +11,17 @@
 #include:latex-mathsymbols
 #include:tex
 
+<<<<<<< HEAD
 # #include:subcaption
 
+=======
+>>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
 #include:biblatex
 #include:hyperref
 #include:cleveref
 #include:xcolor
 
+<<<<<<< HEAD
 #include:amsmath
 #include:amssymb
 #include:amsthm
@@ -48,3 +52,11 @@
 \unpublished{bibid}[postfix]#C
 
 \paragraph*{title}#n
+=======
+\citet{bibid}
+\shorttitle{short title}
+\SpecialSection{title}
+\title{title}
+\title[short title]{title}
+\theshorttitle
+>>>>>>> dddecefbac639e1a01d82513aca8c243326f8688
