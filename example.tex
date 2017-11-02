@@ -1,0 +1,82 @@
+\documentclass{simple-dissertation}
+
+\usepackage{lipsum}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+\addbibresource{example.bib}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title / Dates / Author
+\title{An easily written Dissertation}
+\shorttitle{Simple Dissertation}
+\date{\today}
+\author{Tim Kittel}
+
+\begin{titlingpage}
+	% TODO: add your own style
+	\aliaspagestyle{titlingpage}{plain}
+	\setlength\droptitle{30pt} % vertical position of the title
+\end{titlingpage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abbreviations used in text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+\pagestyle{thesis-preface}
+
+\SpecialSection{Abstract}
+\pagenumbering{roman}
+
+Some randome Abstract should be here.
+
+\SpecialSection{Thanks}
+
+
+\cleartorecto
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleartorecto
+\pagestyle{thesis}
+\pagenumbering{arabic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Test introduction}
+
+Citations use the \verb|biber| backend and can be used normally: \cite{heitzig2016topology} or \citet{heitzig2016topology}, even fancy stuff like ``\citeauthor{kuznetsov1998elements} wrote the book \citetitle{kuznetsov1998elements} in year \citeyear{kuznetsov1998elements}, see \cite{kuznetsov1998elements}'' is easily possible.
+
+\lipsum
+
+\lipsum
+
+\chapter{And another chapter}
+
+
+
+\appendix
+\chapter{My first appendix goes here}
+
+
+
+\printbibliography
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
