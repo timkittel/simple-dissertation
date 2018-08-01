@@ -31,7 +31,6 @@
 %	\ClassError{simple-dissertation}{unknown option ``\@erroroption{}''}
 %\fi
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -42,7 +41,7 @@
 % Load memoir class
 \LoadClass[11pt,a4paper,twoside,onecolumn,openright
 %,final
-,draft
+%,draft
 ,fleqn % displayed math environments will be indented an amount \mathindent from the left margin (the default is to center the environments).
 ,openbib %each part of a bibliography entry will start on a new line, with second and succeding lines indented by \bibindent (the default is for an entry to run continuously with no indentations).
 ]{memoir}
@@ -79,7 +78,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Font
-\fontfamily{ppl}
+\fontfamily{bch}
+%\fontfamily{ppl}
 
 % include boondox calligraphic alphabet
 \usepackage[bb=boondox]{mathalfa} % needed so mathbb can be used for digits, too
@@ -96,7 +96,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Configuration of memoir class
 
-%\sloppybottom % The declaration \sloppybottom lets TeX put an extra line at the bottom of a page to avoid a widow on the following page.
+\setlrmarginsandblock{2.6cm}{3.5cm}{*}
+\checkandfixthelayout 
 
 \let\theshorttitle\empty
 \newcommand\shorttitle[1]{\def\theshorttitle{#1}}
@@ -107,7 +108,21 @@
 		\shorttitle{#1}
 	}
 	\oldtitle{#2}
+	\hypersetup{pdftitle={#2}} % adding as pdf meta data
 }
+
+\let\oldauthor\author
+\renewcommand{\author}[1]{
+	\oldauthor{#1}
+	\hypersetup{pdfauthor={#1}}
+}
+
+%\def\thekeywords\empty
+%\newcommand\addkeyword[1]{
+%	\ifthenelse{\isempty{\thekeywords}}{
+%		\def\thekeywords{#1}	
+%	}{}
+%}
 
 \maxtocdepth{subsection} % everything down to subsection appears in the toc
 %\maxtocdepth{subsubsection} % everything down to subsubsection appears in the toc
@@ -130,35 +145,60 @@
 \aliaspagestyle{title}{empty}
 
 \let\Appendix\appendix
-\def\appendix{\cftaddtitleline{toc}{chapter}{APPENDIX}{}\Appendix}
+%\def\appendix{\cftaddtitleline{toc}{chapter}{APPENDIX}{}\Appendix}
 %TODO: not working properly, the APPENDIX is put below the first appendix chapter
 
-\setparaheadstyle{\normalsize\itshape}
+\renewcommand*{\memUChead}[1]{\textsc{#1}}
+%\renewcommand*{\memUChead}[1]{\textsc{\MakeTextLowercase{#1}}}
 
-% fix the default location for figures and tables
-%\providecommand*\setfloatlocations[2]{\@namedef{fps@#1}{#2}}
-%\setfloatlocations{figure}{htbp}
-%\setfloatlocations{table}{htbp}
-
-\setlength{\parskip}{1mm}
-% Hm, this should remove any spacing around the math environments, but somewhoe it just removes a bit ...
-%\setlength{\belowdisplayskip}{0pt}
-%\setlength{\abovedisplayskip}{0pt}
-%\setlength{\abovedisplayshortskip}{0pt}
-%\setlength{\belowdisplayshortskip}{0pt}
-
-\captionnamefont{\small}
-\captiontitlefont{\small}
-\newsubfloat{figure}% Allow subfloats in figure environment
+% define my own chapter style (actually styling all sections etc.)
+\makechapterstyle{kittel}{
+	\renewcommand{\chapnamefont}{\huge\bfseries\sffamily}
+	\renewcommand{\chapnumfont}{\huge\bfseries\sffamily}
+	\renewcommand{\chaptitlefont}{\huge\bfseries\sffamily}
+	\setsecheadstyle{\Large\bfseries\sffamily}
+	\setsubsecheadstyle{\large\bfseries\sffamily}
+	\setsubsubsecheadstyle{\normalsize\bfseries\sffamily}
+	\setparaheadstyle{\normalsize\itshape}
+	\renewcommand{\cftchapterfont}{\normalsize\bfseries\sffamily}
+	\renewcommand{\cftsectionfont}{\normalsize\sffamily}
+	\renewcommand{\cftsubsectionfont}{\normalsize\sffamily}
+	\renewcommand{\cftsubsubsectionfont}{\normalsize\sffamily}
+	\renewcommand{\cfttablefont}{\normalsize\sffamily}
+	\renewcommand{\cftfigurefont}{\normalsize\sffamily}
+	\renewcommand{\cftsubfigurefont}{\normalsize\sffamily} % seems to be ignored for \subbottom had to fix it manually in the appendix
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% setting the listoftheorems font to sfseries is a tad more annoying but the lines below does the trick
+	% from https://tex.stackexchange.com/questions/400618/adjust-font-in-list-of-theorems-in-memoir
+	\makeatletter
+	\xpatchcmd{\listoftheorems}
+	{\let\thref@starttoc\@starttoc}
+	{%
+		\@for\thmt@envname:=\thmt@allenvs\do{%
+			\@xa\let\csname l@\thmt@envname\endcsname\l@figure
+		}%
+		\let\cftfigurenumwidth\thmt@listnumwidth
+		\let\thref@starttoc\@starttoc
+	}{}{}
+	\makeatother
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\captionnamefont{\small\sffamily}
+	\captiontitlefont{\small\sffamily}
+	\setlength{\parskip}{1mm}
+	
+}
+%\chapterstyle{kittel} % copy this line to use the above style
 
 \setlength{\footmarkwidth} {0em}
 \setlength{\footmarksep}   {0em}
 
-\def\postparagraph{\@addpunct{.}} % only added if not puntuation already in place
+\def\postparagraph{\@addpunct{.}} % only added if no puntuation already in place
 \let\Paragraph\paragraph
 \RenewDocumentCommand\paragraph{s m}{\Paragraph{#2\IfBooleanTF{#1}{}{\postparagraph{}}}}
 
-%\def\paragraph#1{\Paragraph{#1\postparagraph{}}} % added the point behind the paragraph title
+
+\firmlists % reduce the vertical space for list environments
+\setlength\heavyrulewidth{0.3ex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -166,10 +206,8 @@
 \if@configbib
 	\RequirePackage[
 	style=alphabetic,
-	citestyle=alphabetic,
 	backend=biber,
-	backref=true,
-	maxnames=99,
+%	backref=true,
 	maxbibnames=99,
 	maxcitenames=1,
 	mincitenames=1,
@@ -178,13 +216,15 @@
 	]{biblatex}
 	\newcommand\citet[1]{\citeauthor{#1} \cite{#1}}
 	\renewcommand*{\labelalphaothers}{} % removes the + inside a citation
-	
+
 	\DeclareLabelalphaTemplate{
 		\labelelement{
-			\field[names=1]{author} 
+			\field[final]{shorthand}
+			\field{label}
+			\field[strwidth=3,strside=left,names=1]{labelname}
 		}
 		\labelelement{
-			\field{year}
+			\field{year}    
 		}
 	}
 
@@ -239,19 +279,54 @@
 %\if@configrefs
 	\RequirePackage{varioref}
 	\RequirePackage[
+	pdfa,
 	hidelinks,
 	breaklinks=true,
 	bookmarksnumbered=true,
 	pdfpagemode=UseOutlines,
-	%backref,
-	% TODO: backref not working, check later
-	]{hyperref} % not working?
+	pdfpagelayout=SinglePage,
+	pdffitwindow=true
+	]{hyperref} 
+	\usepackage{hyperxmp} % somehow needed for the meta data
 	\RequirePackage[
 	nameinlink,
+	sort&compress, % not working?
 	]{cleveref}
-	% TODO: define the below and more
 	\RequirePackage{nameref}
 %\fi
+
+\immediate\pdfobj stream attr{/N 3} file{sRGBIEC1966-2.1.icm}
+\pdfcatalog{%
+	/OutputIntents [ <<
+	/Type /OutputIntent
+	/S/GTS_PDFA1
+	/DestOutputProfile \the\pdflastobj\space 0 R
+	/OutputConditionIdentifier (sRGB IEC61966-2.1)
+	/Info(sRGB IEC61966-2.1)
+	>> ]
+}
+
+\newsubfloat{figure}% Allow subfloats in figure environment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% statement of authorship
+
+\newcommand{\statementofauthorshiptitle}{Selbstständigkeitserklärung}
+\newcommand\StatementOfAuthorship{
+	\cleartorecto
+	\section*{\statementofauthorshiptitle{}}
+	\pagestyle{empty}
+	\pdfbookmark{\statementofauthorshiptitle{}}{statement-of-authorship}
+}
+
+\newcommand{\SignatureLine}[1][3cm]{
+	\vskip #1
+	
+	\noindent
+	\makebox[.49\textwidth][l]{\textoverline{Place, Date\hspace{3cm}} \hspace{5cm}}\hfill\makebox[0.49\textwidth][r]{\textoverline{Signature\hspace{3cm}}}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -261,24 +336,28 @@
 \def\toctitlestyle{\chapter*}
 
 \newcommand\FrontMatterSection[1]{
-	\cleartorecto
 	\frontmattersectiontitlestyle{#1}
 	\addcontentsline{toc}{chapter}{#1}  % add '#1' to the TOC for orientation
 }
+
 \makeatletter
 \renewcommand\@tocmaketitle{%
 	\toctitlestyle{\contentsname}
 	\tocmark%
-	\@afterheading}
+	\@afterheading
+}
 \renewcommand\@lofmaketitle{%
-\frontmattersectiontitlestyle{\listfigurename}
-\lofmark%
-\@afterheading}
+	\frontmattersectiontitlestyle{\listfigurename}
+	\lofmark%
+	\@afterheading
+}
 \renewcommand\@lotmaketitle{%
-\frontmattersectiontitlestyle{\listtablename}
-\lotmark%
-\@afterheading}
+	\frontmattersectiontitlestyle{\listtablename}
+	\lotmark%
+	\@afterheading
+}
 \makeatother
+\xpatchcmd{\listoftheorems}{1.5em}{\cftfigureindent}{}{\PatchFailed} % ensure list of theorems looks like list of figures etc.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -290,13 +369,22 @@
 
 \newif{\ifshowcomment}
 \showcommenttrue
-\renewcommand{\comment}[1]{\ifshowcomment \marginpar{  \begin{margincomment} #1 \end{margincomment}  } \fi \PackageWarning{}{Comment: #1} }
+\renewcommand{\comment}[1]{\ifshowcomment \marginpar{  \begin{margincomment} #1 \end{margincomment}  } \fi
+	\PackageWarning{}{Comment: #1}
+	\PackageError{simple-dissertation}{Comment: #1}
+}
 
 \newif{\ifshowdefense}
 \showdefensetrue
 \newcommand{\defense}[1]{\ifshowdefense \marginpar{  \begin{margindefense} #1 \end{margindefense}  } \fi}
 
+\newcommand{\textoverline}[1]{$\overline{\mbox{#1}}$}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % custom commands
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+
+\endinput

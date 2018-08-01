@@ -12,7 +12,7 @@
 \title{Your Dissertation}
 \shorttitle{Simple Dissertation}
 \date{\today}
-\author{Tim Kittel}
+\author{Author Name}
 
 \begin{titlingpage}
 	% TODO: add your own titling page style
@@ -21,9 +21,11 @@
 \end{titlingpage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Abbreviations used in text
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hypersetup{pdfkeywords={Nonlinear Dynamics, Complex Systems, Transient Analysis, Sustainability}}
+\hypersetup{pdflang={en-US}}
+\hypersetup{pdfsubject={Theoretical Physics}}
+\hypersetup{pdfstartpage={1}}
 
 \begin{document}
 
@@ -31,12 +33,16 @@
 
 \pagestyle{thesis-preface}
 
+\cleartorecto
 \FrontMatterSection{Abstract}
 \pagenumbering{roman}
 
 Some randome Abstract should be here.
 
-\FrontMatterSection{Thanks}
+\cleartorecto
+\FrontMatterSection{Acknowledgments}
+Say who you want to thank.
+
 
 
 \cleartorecto
@@ -74,7 +80,11 @@ Citations use the \verb|biblatex| package with \verb|biber| backend and can be u
 
 \printbibliography
 
+\StatementOfAuthorship{}
 
+Ich erkläre, dass ich die Dissertation selbständig und nur unter Verwendung der von mir gemäß § 7 Abs. 3 der Promotionsordnung der Mathematisch-Naturwissenschaftlichen Fakultät, veröffentlicht im Amtlichen Mitteilungsblatt der Humboldt-Universität zu Berlin Nr. 126/2014 am 18.11.2014 angegebenen Hilfsmittel angefertigt habe und alle Quellen angegeben habe.
+
+\SignatureLine{}
 
 \end{document}
 
